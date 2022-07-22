@@ -1,0 +1,299 @@
+* {
+  box-sizing: border-box;
+}
+
+
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+}
+
+html {
+  font-family: "Lucida Sans", sans-serif;
+}
+
+.header {
+  color: #ffffff;
+  padding: 15px;
+}
+
+.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  padding: 8px;
+  margin-bottom: 7px;
+  background-color: #33b5e5;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.menu li:hover {
+  background-color: #0099cc;
+}
+
+.aside {
+  background-color: #33b5e5;
+  padding: 15px;
+  color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.footer {
+  background-color: #0099cc;
+  color: #ffffff;
+  text-align: center;
+  font-size: 12px;
+  padding: 15px;
+}
+
+/* For mobile phones: */
+[class*="col-"] {
+  width: 100%;
+}
+
+.toptable tr > *:nth-child(1) {
+  width: 10%;
+}
+
+.toptable tr > *:nth-child(2) {
+  width: 90%;
+}
+
+.col-100 {
+  height: 50%;
+}
+
+.main-padding {
+  padding-bottom: 0px;
+  padding-right: 15px;
+}
+
+.childrenFullHeight {
+  /* display: auto; */
+  /* height: 50%; */
+}
+
+@media only screen and (min-width: 600px) {
+  /* For tablets: */
+  .col-s-1 {
+    width: 8.33%;
+  }
+  .col-s-2 {
+    width: 16.66%;
+  }
+  .col-s-3 {
+    width: 25%;
+  }
+  .col-s-4 {
+    width: 33.33%;
+  }
+  .col-s-5 {
+    width: 41.66%;
+  }
+  .col-s-6 {
+    width: 50%;
+  }
+  .main-padding {
+    padding-bottom: 15px;
+    padding-right: 0px;
+  }
+  .childrenFullHeight {
+    display: flex;
+  }
+  /* .col-s-50 {height: 50%;} */
+  .col-100 {
+    height: auto;
+  }
+  .col-s-7 {
+    width: 58.33%;
+  }
+  .col-s-8 {
+    width: 66.66%;
+  }
+  .col-s-9 {
+    width: 75%;
+  }
+  .col-s-10 {
+    width: 83.33%;
+  }
+  .col-s-11 {
+    width: 91.66%;
+  }
+  .col-s-12 {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .col-1 {
+    width: 8.33%;
+  }
+  .col-2 {
+    width: 16.66%;
+  }
+  .col-3 {
+    width: 25%;
+  }
+  .col-4 {
+    width: 33.33%;
+  }
+  .col-5 {
+    width: 41.66%;
+  }
+  .col-6 {
+    width: 50%;
+  }
+  .col-7 {
+    width: 58.33%;
+  }
+  .col-8 {
+    width: 66.66%;
+  }
+  .col-9 {
+    width: 75%;
+  }
+  .col-10 {
+    width: 83.33%;
+  }
+  .col-11 {
+    width: 91.66%;
+  }
+  .col-12 {
+    width: 100%;
+  }
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background-color: rgb(63, 63, 63);
+  color: rgb(144, 144, 144);
+}
+
+.outer {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.inner_fixed {
+  height: 180px;
+  background-color: #9ca8b5;
+}
+
+.inner_remaining {
+  background-color: #f1f1f1;
+  flex-grow: 1;
+}
+
+.inputMax {
+  width: 100%;
+  height: 100%;
+}
+
+.button2fa {
+  width: 100%;
+}
+
+.passwordLabel {
+  font-weight: 100;
+  padding: 5px;
+}
+
+.toptable {
+  width: 100%;
+}
+
+input {
+  width: 100%;
+}
+
+#plaintext {
+  padding: 2%;
+  font-size: 1em;
+}
+
+#encrypted {
+  padding: 2%;
+  font-size: 0.8em;
+}
+
+#errorMessage {
+  padding: 4px;
+  color: #ffbaba;
+}
+
+.password {
+  text-align: center;
+}
+
+#passwordInput {
+  /* height: 2.5em; */
+  padding: 10px;
+  font-size: 1em;
+}
+
+button {
+  border-radius: 5px;
+  height: 2.2em;
+}
+table {
+  padding: 10px;
+}
+
+.body-blackout {
+  position: absolute;
+  z-index: 1010;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
+  /* display: none; */
+}
+
+.popup-modal {
+  /* height: 500px; */
+  /* width: 650px; */
+  background-color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+  /* opacity: 0; */
+  /* pointer-events: none; */
+  /* transition: all 300ms ease-in-out; */
+  z-index: 1020;
+}
+
+.hide-modal {
+  display: none;
+}
+
+.modal-close-button {
+  /* margin-top: 20px; */
+  width: 100%;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+  .popup-modal {
+    width: 100%;
+  }
+}
