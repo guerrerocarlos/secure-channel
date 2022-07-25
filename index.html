@@ -76,7 +76,7 @@
           <textarea id="plaintext" style="width: 100%;" rows="15" placeholder="Paste secrets here"></textarea>
         </div>
         <div id="description2"> 
-          <div>3. Secrets are encripted automatically and included in the URL</div>
+          <div>3. Secrets are encrypted automatically and included in the URL</div>
           <div>4. Send URL back to <span class="emoid"> </span></div>
         </div>
         <div  id="urlLink" class="col urlLink" style="word-break: break-all;">
@@ -94,6 +94,15 @@
         </div>
         <div>Key Pair: <span class="emoid"> </span></div>
         <div><button onclick="flushKeys()">Flush keys</button><span id="flushResults"></span></div>
+      </div>
+
+      <div class="row hidden" id="wrongUI">
+        <div id="description2"> 
+          <div>🚨 Wrong browser, the public key was not found in this browser.</div>
+          <br>
+          <div>⭐️ To decrypt data that you are receiving, remember to use the same browser you first opened to generate the keys.</div>
+          <div>✉️ If you are sending data, try re-opening the link you received.</div>
+        </div>
       </div>
 
   </div>

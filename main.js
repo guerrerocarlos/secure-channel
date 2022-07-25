@@ -37,88 +37,94 @@ async function main() {
     pair.priv = localStorage.getItem(pair.pub);
   }
 
-  console.log("pair", pair);
-
-  if (pair.priv) {
-    document.getElementById("shareableUrl").href = window.location.href;
-    document.getElementById("shareableUrl").innerText = window.location.href;
-
-    lastHash = document.location.hash
-    setInterval(() => {
-      console.log("COMPARE!", lastHash, document.location.hash)
-      if(lastHash !== document.location.hash) {
-        main()
-      }
-    }, 1000)
-  } else {
-    if (params.get("pub")) {
-      let d = await emojiHash(params.get("pub"), 6);
-      localStorage.setItem(d.decimal, params.get("pub"));
-      params.set("to", d.decimal);
-      params.delete("pub");
-      console.log("GO TO:", params.toString());
-      document.location.search = params.toString();
-    }
-
-    document.getElementById("senderUI").classList.remove("hidden");
+  if(params.get("to") && !localStorage.getItem(params.get("to"))) {
+    console.log("WRONG BROWSER!!")
+    document.getElementById("wrongUI").classList.remove("hidden");
     document.getElementById("receiverUI").classList.add("hidden");
-    document.getElementById("secretTextarea").classList.remove("hidden");
-  }
-
-  emojids = document.getElementsByClassName("emoid");
-  let hash = await emojiHash(pair.pub, 6);
-  for (let i = 0; i < emojids.length; i++) {
-    emojids[i].innerText = hash.emoji;
-  }
-
-  // if (params.get("ciphertext")) {
-  //   document.getElementById("ciphertext").value = params.get("ciphertext");
-  // }
-
-  if (document.location.hash) {
-    console.log("GOT HASH:", document.location.hash);
-
-    let result = await decrypt(document.location.hash.replace("#", ""));
-
-    if (result) {
-      document.getElementById("decriptedUI").classList.remove("hidden");
-      document.getElementById("receiverUI").classList.add("hidden");
-
-      document.getElementById("decripted").value = result;
-      document.getElementById("decripted").disabled = true;
+  } else {
+    console.log("pair", pair);
+  
+    if (pair.priv) {
+      document.getElementById("shareableUrl").href = window.location.href;
+      document.getElementById("shareableUrl").innerText = window.location.href;
+  
+      lastHash = document.location.hash
+      setInterval(() => {
+        console.log("COMPARE!", lastHash, document.location.hash)
+        if(lastHash !== document.location.hash) {
+          main()
+        }
+      }, 1000)
     } else {
-      console.log("Private Key not Found :(");
+      if (params.get("pub")) {
+        let d = await emojiHash(params.get("pub"), 6);
+        localStorage.setItem(d.decimal, params.get("pub"));
+        params.set("to", d.decimal);
+        params.delete("pub");
+        console.log("GO TO:", params.toString());
+        document.location.search = params.toString();
+      }
+  
+      document.getElementById("senderUI").classList.remove("hidden");
+      document.getElementById("receiverUI").classList.add("hidden");
+      document.getElementById("secretTextarea").classList.remove("hidden");
     }
-
-    document.getElementById("secretTextarea").classList.remove("hidden");
+  
+    emojids = document.getElementsByClassName("emoid");
+    let hash = await emojiHash(pair.pub, 6);
+    for (let i = 0; i < emojids.length; i++) {
+      emojids[i].innerText = hash.emoji;
+    }
+  
+    // if (params.get("ciphertext")) {
+    //   document.getElementById("ciphertext").value = params.get("ciphertext");
+    // }
+  
+    if (document.location.hash) {
+      console.log("GOT HASH:", document.location.hash);
+  
+      let result = await decrypt(document.location.hash.replace("#", ""));
+  
+      if (result) {
+        document.getElementById("decriptedUI").classList.remove("hidden");
+        document.getElementById("receiverUI").classList.add("hidden");
+  
+        document.getElementById("decripted").value = result;
+        document.getElementById("decripted").disabled = true;
+      } else {
+        console.log("Private Key not Found :(");
+      }
+  
+      document.getElementById("secretTextarea").classList.remove("hidden");
+    }
+  
+    // document.getElementById("priv").innerText = pair.priv;
+    // document.getElementById("pub").innerText = pair.pub;
+    // document.getElementById("content").innerText = "";
+  
+    // if (document.location.hash) {
+    //   document.getElementById("ciphertext").value =
+    //     document.location.hash.replace("#", "");
+    //   // decrypt();
+    // }
+  
+    // encrypt();
+  
+    const encriptNow = async () => {
+      let plaintext = document.getElementById("plaintext").value;
+      let ciphertext = await encrypt(plaintext);
+      document.location.hash = ciphertext;
+      console.log("ENCRIPTED:", ciphertext);
+      document.getElementById("shareableUrl").innerText = document.location.href;
+  
+      shareableUIs = document.getElementsByClassName("shareableUrl");
+      for (let i = 0; i < shareableUIs.length; i++) {
+        shareableUIs[i].innerText = document.location.href;
+      }
+    };
+  
+    document.getElementById("plaintext").addEventListener("keyup", encriptNow);
   }
-
-  // document.getElementById("priv").innerText = pair.priv;
-  // document.getElementById("pub").innerText = pair.pub;
-  // document.getElementById("content").innerText = "";
-
-  // if (document.location.hash) {
-  //   document.getElementById("ciphertext").value =
-  //     document.location.hash.replace("#", "");
-  //   // decrypt();
-  // }
-
-  // encrypt();
-
-  const encriptNow = async () => {
-    let plaintext = document.getElementById("plaintext").value;
-    let ciphertext = await encrypt(plaintext);
-    document.location.hash = ciphertext;
-    console.log("ENCRIPTED:", ciphertext);
-    document.getElementById("shareableUrl").innerText = document.location.href;
-
-    shareableUIs = document.getElementsByClassName("shareableUrl");
-    for (let i = 0; i < shareableUIs.length; i++) {
-      shareableUIs[i].innerText = document.location.href;
-    }
-  };
-
-  document.getElementById("plaintext").addEventListener("keyup", encriptNow);
 }
 
 main();
