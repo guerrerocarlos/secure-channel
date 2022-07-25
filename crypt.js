@@ -57,47 +57,6 @@ function arrayBufferToString(str) {
   return byteString;
 }
 
-// let pair = {};
-// let params = new URLSearchParams(document.location.search);
-// console.log("params", params);
-
-// document.getElementById("content").value =
-//   localStorage.getItem("plaintext") || "";
-// const textarea = document.getElementById("content");
-// const end = textarea.value.length;
-// textarea.setSelectionRange(end, end);
-// textarea.focus();
-
-// async function main() {
-//   if (!params.get("pub")) {
-//     pair = await generateKeyPair();
-//     params.set("pub", pair.pub);
-//     document.location.search = params.toString();
-//     localStorage.setItem(pair.pub, pair.priv);
-//   } else {
-//     pair.pub = params.get("pub");
-//     pair.priv = localStorage.getItem(pair.pub);
-//   }
-
-//   // if (params.get("ciphertext")) {
-//   //   document.getElementById("ciphertext").value = params.get("ciphertext");
-//   // }
-
-//   console.log("pair", pair);
-
-//   document.getElementById("priv").innerText = pair.priv;
-//   document.getElementById("pub").innerText = pair.pub;
-//   document.getElementById("content").innerText = "";
-
-//   // if (document.location.hash) {
-//   //   document.getElementById("ciphertext").value =
-//   //     document.location.hash.replace("#", "");
-//   //   decrypt();
-//   // }
-
-//   encrypt();
-// }
-
 let ciphertext;
 let readableCiphertext;
 let data = "a";
@@ -110,8 +69,6 @@ var _appendBuffer = function (buffer1, buffer2) {
 };
 
 async function encrypt(data) {
-  // localStorage.setItem("plaintext", document.getElementById("content").value);
-  // console.log("plaintext", document.getElementById("content").value);
 
   let importedPubKey = await window.crypto.subtle.importKey(
     "spki",
@@ -127,20 +84,8 @@ async function encrypt(data) {
   console.log("importedPubKey", importedPubKey);
 
   const encoder = new TextEncoder();
-  // console.log("encoder", encoder);
-
-  // let data = document.getElementById("content").value;
-
-  // console.log(
-  //   "data",
-  //   data.length,
-  //   data,
-  //   encoder.encode(data),
-  //   encoder.encode(data).length
-  // );
 
   let ciphertext = new Uint8Array(0);
-  // let concats = new Uint8Array(0)
 
   for (let i = 0; i < data.length / 10; i++) {
     let ciphertextBlob = await window.crypto.subtle.encrypt(
@@ -151,21 +96,13 @@ async function encrypt(data) {
       encoder.encode(data.slice(i * 10, (i + 1) * 10)) //ArrayBuffer of data you want to sign
     );
     console.log("💥 ciphertextBlob", ciphertextBlob);
-    // ciphertext = ciphertextBlob // _appendBuffer(ciphertext, ciphertextBlob)
     ciphertext = arrayBufferConcat(ciphertext, ciphertextBlob);
   }
 
   console.log("DATA;", data);
 
-  // console.log("ciphertext", typeof ciphertext, ciphertext);
-
   return stringify(new Uint8Array(ciphertext), base64Encoding); // btoa(ciphertext.toString())
   
-  // console.log("readableCiphertext", readableCiphertext);
-
-  // document.getElementById("ciphertext").innerText = readableCiphertext;
-  // params.set("ciphertext", readableCiphertext);
-  // document.location.hash = readableCiphertext;
 }
 
 function buf2hex(buffer) {
@@ -177,12 +114,6 @@ function buf2hex(buffer) {
 
 async function decrypt(cipherPayload) {
   if (pair.priv) {
-    // let cipherPayload = document.getElementById("ciphertext").value;
-
-    // console.log("cypherPayload1", cipherPayload);
-    // console.log("cypherPayload2", readableCiphertext)
-
-    // TODO: recover from base64
     ciphertext = parse(cipherPayload, base64Encoding);
 
     console.log("ciphetext", ciphertext);
@@ -210,25 +141,7 @@ async function decrypt(cipherPayload) {
       console.log("recovered", recovered);
       totalcipherresult += String.fromCharCode(...new Uint8Array(recovered));
     }
-    // document.getElementById("recovered").value = totalcipherresult;
 
     return totalcipherresult
   }
 }
-
-// let pendingEncrypt;
-// document.getElementById("content").addEventListener("keyup", () => {
-//   clearTimeout(pendingEncrypt);
-//   pendingEncrypt = setTimeout(encrypt, 3000);
-// });
-// document.getElementById("ciphertext").addEventListener("keyup", () => {
-//   let result = encrypt(document.getElementById("ciphertext").value)
-//   console.log(result)
-// });
-
-// main();
-
-// setInterval( () => {
-//   data += "a"
-//   // encrypt()
-// }, 1000)

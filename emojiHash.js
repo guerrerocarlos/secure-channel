@@ -7,24 +7,14 @@ function buf2hex(buffer) {
 
 function emojiHash(string = undefined, hashLength = 1, fn) {
   string = string.split("\n")[1];
-  console.log("HASHING:", string);
   const encoder = new TextEncoder();
 
   return window.crypto.subtle
     .digest("SHA-256", encoder.encode(string))
     .then((digest) => {
-      console.log("digest", digest);
 
       const hexHash = buf2hex(new Uint8Array(digest).buffer.slice(0, 6));
-      console.log("hexHash", hexHash);
       const decimalHash = parseInt(hexHash, 16);
-      console.log(
-        "decimalHash",
-        decimalHash,
-        emojis.length,
-        hashLength,
-        Math.pow(emojis.length, hashLength)
-      );
 
       let emojiIndex = decimalHash % Math.pow(emojis.length, hashLength);
 
@@ -36,7 +26,6 @@ function emojiHash(string = undefined, hashLength = 1, fn) {
         emojiIndex = Math.floor(emojiIndex / emojis.length);
       }
 
-      console.log("emojiString", emojiString);
       return { emoji: emojiString, decimal: decimalHash };
     });
 }

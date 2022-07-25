@@ -16,6 +16,8 @@ function flushKeys() {
   }, seconds * 1000);
 }
 
+console = { log: () => {} }
+
 let pair = {};
 let params = new URLSearchParams(document.location.search);
 console.log("---- params", params);
@@ -25,7 +27,7 @@ async function main() {
     console.log("NO PUB!");
     pair = await generateKeyPair();
     params.set("pub", pair.pub);
-    document.location.search = params.toString();
+    document.location.search = params.toString("utf-8");
     localStorage.setItem(pair.pub, pair.priv);
     let h = await emojiHash(pair.pub, 6);
     console.log("H", h);
@@ -62,7 +64,7 @@ async function main() {
         params.set("to", d.decimal);
         params.delete("pub");
         console.log("GO TO:", params.toString());
-        document.location.search = params.toString();
+        document.location.search = params.toString("utf-8");
       }
   
       document.getElementById("senderUI").classList.remove("hidden");
