@@ -23,4 +23,5 @@ All code is readable and no javascript builder nor transpiler is required.
 * No cookies
 * No tracking
 * No backend
+* No storage (only temporary localStorage for the keys in your browser)
 * Browser-native ([WebCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)) encryption.
