@@ -2,6 +2,8 @@
 
 Simple way to create a cryptographically secure channel for transmitting sensible information without pre-shared keys.
 
+<img width="847" alt="Screenshot 2023-08-18 at 11 41 55 PM" src="https://github.com/guerrerocarlos/secure-channel/assets/82532/761b842f-3b7b-4e4f-a696-326d93bc6564">
+
 ## How to use:
 
  * Open the website: [https://guerrerocarlos.github.io/secure-channel/](https://guerrerocarlos.github.io/secure-channel/)
