@@ -14,7 +14,9 @@ Simple way to create a cryptographically secure channel for transmitting sensibl
 
 ## Self-hosting
 
-You can have your own secure-channel hosted on github by just cloning this repo and enable Github Pages, you would get a domain in the form of https://<username>.github.io/secure-channel/ or even use a [custom domain](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages).
+You can have your own secure-channel hosted on github by just cloning this repo and enable Github Pages, you would get a domain in the form of __https://**username**.github.io/secure-channel/__ or enable a [custom domain](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages) for it.
+
+All code is readable and no javascript builder nor transpiler is required.
 
 ## Disclaimer
 
