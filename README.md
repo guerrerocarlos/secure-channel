@@ -7,7 +7,7 @@ Simple way to create a cryptographically secure channel for transmitting sensibl
 ## How to use:
 
  * Open the website: [https://guerrerocarlos.github.io/secure-channel/](https://guerrerocarlos.github.io/secure-channel/)
- * Copy the link provided and share it with your peer
+ * Click **Copy recipient link** and share it with your peer. New links omit PEM punctuation so smart punctuation cannot alter a closing delimiter.
  * Your peer should fill in the private/sensible information and send you back the resulting link
  * Open the link returned by your peer, get/use the sensible information
  * Flush the keys
@@ -26,6 +26,10 @@ The helper prints an encrypted reply URL, which the agent returns to you. Open i
 in your original browser profile. It performs no network requests and accepts
 1-1024 ASCII bytes to match the legacy receiver. Malformed links require a fresh
 recipient URL. Existing cryptographic limitations are documented in the guide.
+
+Existing receiver keys and valid older PEM links remain compatible. The sender
+helper accepts both link formats. Malformed links show an error instead of failing
+silently; damaged key data is never repaired automatically.
 
 Run compatibility checks with `node --test tests/*.test.mjs`.
 

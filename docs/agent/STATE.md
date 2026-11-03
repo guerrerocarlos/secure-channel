@@ -20,3 +20,18 @@
   and browser-local private keys. The helper preserves the format and rejects Unicode.
 - The recipient link pasted in the task had a malformed PEM footer; request a fresh
   browser-generated link for actual use. Do not persist that recipient's key here.
+
+## Copy-safe recipient links
+
+- The receiver shares only the URL-encoded base64 SPKI
+  body in `pub`, avoiding PEM delimiter punctuation. Existing localStorage keys,
+  recipient IDs, encryption, and reply URLs are preserved.
+- Browser and offline helper accept compact links and valid legacy PEM links.
+  Invalid browser links show an error. Copy recipient link has clipboard success
+  feedback and manual-copy guidance when clipboard access fails.
+- First-visit key storage now completes before navigation to the share URL.
+- Ten local tests pass, including browser-script integration in a simulated DOM,
+  clipboard outcomes, old/new link compatibility, and decryption. Real-browser
+  clipboard behavior and Telegram transport remain manual acceptance checks.
+- On 2026-11-03, @guerrerocarlos explicitly approved merging and deploying PR #3
+  in response to the security review request.

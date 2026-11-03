@@ -10,7 +10,9 @@ export function parseRecipient(link) {
       url.searchParams.getAll('pub').length !== 1 || [...url.searchParams.keys()].some(k => k !== 'pub')) {
     throw new Error('Use the original HTTPS recipient URL with only one pub parameter and no fragment.');
   }
-  const pem = url.searchParams.get('pub');
+  const value = url.searchParams.get('pub');
+  const pem = /^[A-Za-z0-9+/]+={0,2}$/.test(value)
+    ? `-----BEGIN PUBLIC KEY-----\n${value}\n-----END PUBLIC KEY-----` : value;
   // Exact serialization matters: the browser hashes the second PEM line.
   if (!/^-----BEGIN PUBLIC KEY-----\n[A-Za-z0-9+/]+={0,2}\n-----END PUBLIC KEY-----$/.test(pem)) {
     throw new Error('Malformed public key. Ask for a fresh link; do not repair or guess the key.');

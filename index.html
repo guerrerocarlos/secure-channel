@@ -75,6 +75,10 @@
         <div  id="urlLink" class="col urlLink" style="word-break: break-all;">
           <a  id="shareableUrl" class="shareableUrl"></a>
         </div>
+        <div>
+          <button type="button" onclick="copyRecipientLink()">Copy recipient link</button>
+          <span id="copyLinkStatus" role="status"></span>
+        </div>
       </div>
 
       <div class="row hidden" id="senderUI">
@@ -115,11 +119,15 @@
         </div>
       </div>
 
+      <p id="linkError" class="hidden" role="alert">This link could not be opened.
+        If you are sending a secret, ask for a fresh link made with Copy recipient link.
+        If you are receiving one, use the original browser that holds your key.</p>
   </div>
 
     <script src="./emojiHash.js" type="text/javascript"></script>
     <script src="./genKeyPair.js" type="text/javascript"></script>
     <script src="./crypt.js" type="text/javascript"></script>
+    <script src="./recipient-link.js" type="text/javascript"></script>
     <script src="./main.js" type="text/javascript"></script>
 
   </body>
