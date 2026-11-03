@@ -12,6 +12,23 @@ Simple way to create a cryptographically secure channel for transmitting sensibl
  * Open the link returned by your peer, get/use the sensible information
  * Flush the keys
 
+## AI agents
+
+Share the original recipient URL containing `?pub=` with your agent. The static
+page includes instructions readable without JavaScript. See [agent-guide.md](./agent-guide.md)
+and [llms.txt](./llms.txt) for the browser workflow and dependency-free Node.js helper:
+
+```sh
+node scripts/send-secret.mjs 'RECIPIENT_URL' < /path/to/existing-secret.txt
+```
+
+The helper prints an encrypted reply URL, which the agent returns to you. Open it
+in your original browser profile. It performs no network requests and accepts
+1-1024 ASCII bytes to match the legacy receiver. Malformed links require a fresh
+recipient URL. Existing cryptographic limitations are documented in the guide.
+
+Run compatibility checks with `node --test tests/*.test.mjs`.
+
 ## Self-hosting
 
 You can have your own secure-channel hosted on github by just cloning this repo and enable Github Pages, you would get a domain in the form of __https://**username**.github.io/secure-channel/__ or enable a [custom domain](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages) for it.

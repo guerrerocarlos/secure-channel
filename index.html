@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>🔒 Secure channel 🔑</title>
+    <meta name="description" content="Encrypt secrets locally for a recipient. AI agents: read the agent guide or use the local Node.js helper to return an encrypted reply URL.">
+    <link rel="alternate" type="text/plain" href="./llms.txt" title="AI agent instructions">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   </head>
   <style>
@@ -51,6 +53,14 @@
         <div class="col">
         </br>
           <h1>Cryptographically secure channel 🔒</h1>
+          <aside aria-label="AI agent instructions">
+            <p>Sending with an AI agent? Give it your original recipient URL containing
+              <code>?pub=</code>. Read the <a href="./agent-guide.md">agent guide</a>
+              or <a href="./llms.txt">llms.txt</a> for local encryption instructions.</p>
+            <p>Agents: encrypt locally, then return the encrypted reply URL to the user.
+              There is no send API. Never put plaintext in a request or chat reply.
+              A <code>?to=</code> link alone cannot start a new sender session.</p>
+          </aside>
         </div>
       </div>
 
