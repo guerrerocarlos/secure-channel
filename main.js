@@ -23,15 +23,24 @@ let params = new URLSearchParams(document.location.search);
 console.log("---- params", params);
 
 async function main() {
+  if (params.has('pub')) {
+    if (params.getAll('pub').length !== 1 || params.has('to')) {
+      throw new Error('Ambiguous recipient link. Please copy a fresh link.');
+    }
+    const pem = recipientPem(params.get('pub'));
+    await window.crypto.subtle.importKey('spki', pemToArrayBufferPublic(pem),
+      { name: 'RSA-OAEP', hash: 'SHA-256' }, false, ['encrypt']);
+    params.set('pub', pem);
+  }
   if (!params.get("pub") && !params.get("to")) {
     console.log("NO PUB!");
     pair = await generateKeyPair();
-    params.set("pub", pair.pub);
-    document.location.search = params.toString("utf-8");
     localStorage.setItem(pair.pub, pair.priv);
     let h = await emojiHash(pair.pub, 6);
     console.log("H", h);
     localStorage.setItem(h.decimal, pair.pub);
+    document.location.href = recipientUrl(document.location.href, pair.pub);
+    return;
   } else {
     console.log("GOT PUB!");
     pair.pub = params.get("pub") || localStorage.getItem(params.get("to"));
@@ -47,8 +56,9 @@ async function main() {
     console.log("pair", pair);
   
     if (pair.priv) {
-      document.getElementById("shareableUrl").href = window.location.href;
-      document.getElementById("shareableUrl").innerText = window.location.href;
+      const shareLink = recipientUrl(window.location.href, pair.pub);
+      document.querySelector('#receiverUI .shareableUrl').href = shareLink;
+      document.querySelector('#receiverUI .shareableUrl').innerText = shareLink;
   
       lastHash = document.location.hash
       setInterval(() => {
@@ -129,4 +139,9 @@ async function main() {
   }
 }
 
-main();
+main().catch(() => {
+  for (const id of ['receiverUI', 'senderUI', 'decriptedUI', 'wrongUI']) {
+    document.getElementById(id).classList.add('hidden');
+  }
+  document.getElementById('linkError').classList.remove('hidden');
+});

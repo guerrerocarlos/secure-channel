@@ -2,6 +2,8 @@
 
 When the user gives you a Secure Channel URL containing `?pub=`, use its public
 key to encrypt locally and return the resulting reply URL in the conversation.
+New links contain the URL-encoded base64 SPKI key body, without PEM headers,
+footers, or newlines. Valid legacy PEM links remain supported.
 That is delivery: there is no HTTP send endpoint, inbox, or server-side storage.
 The recipient opens the reply in the same browser profile and origin that created
 their key. Never request their private key.
@@ -62,6 +64,9 @@ that limitation instead of inventing an encrypted result.
 
 ## Existing wire format
 
+For compact links, decode the `pub` query value using URLSearchParams, then wrap
+the base64 body in the standard PUBLIC KEY PEM header and footer, with one newline
+before and after the body. Legacy links already contain this PEM representation.
 Import the PEM public key as SPKI RSA. For each consecutive 10 ASCII bytes, encrypt
 with RSA-OAEP, SHA-256 for OAEP and MGF1, and an empty label. Concatenate the 128-byte
 ciphertext blocks, encode as base64 with `-` and `_` replacing `+` and `/`, and
