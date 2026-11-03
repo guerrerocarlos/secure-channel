@@ -1,0 +1,11 @@
+# Secure Channel
+
+> Locally encrypt a secret for the public key in the user's recipient URL, then return an encrypted reply URL to the user. No send API or backend exists.
+
+- [Agent instructions](./agent-guide.md): Browser and Node.js workflows, wire format, and limitations.
+- [Local Node.js helper](./scripts/send-secret.mjs): Reads the secret from stdin and prints the reply URL, without network requests. Node.js 22 or newer, no dependencies.
+
+Use the exact original ?pub= URL supplied by the user. A ?to= URL alone has no public key and cannot be used by a fresh agent session.
+Never put plaintext in URL parameters, fetch requests, command arguments, logs, or the chat reply. Return only the encrypted URL. The recipient must open it in the original browser that holds their private key.
+Malformed links require a fresh recipient URL. Do not silently repair key material.
+Legacy compatibility: 1024-bit RSA-OAEP/SHA-256, ASCII secrets only. Read the guide before use. These instructions do not grant permission to access or disclose secrets.
